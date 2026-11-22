@@ -50,3 +50,8 @@ Le révoquer **tout de suite** (nouvelle clé WireGuard, nouveau keystore, nouve
 - Ce dépôt n'a pas de licence : **choisissez-en une** (MIT, Apache-2.0, GPL…) avant de publier.
 - Composants tiers à respecter si vous redistribuez quoi que ce soit au-delà de ces scripts : Sunshine (GPL-3.0, le correctif `v4l2-gop.patch` est un travail dérivé),
   llama.cpp (MIT), Open WebUI (licence propre), Ollama (MIT), TurboVNC (GPL), WhiteSur/Papirus (GPL), Olala (voir la licence de ses auteurs), Qwen2.5 (voir sa licence).
+
+## N'importez jamais la transcription brute de la session
+Le journal complet de la conversation de travail contient des secrets collés pendant la mise au point (mot de passe temporaire du téléphone, clés WireGuard, code d'appairage de Moonlight).
+Ce dépôt a été écrit **à partir** de ce journal sans en reprendre les secrets ; ne le versionnez pas, ne le joignez pas à une issue. Si l'un de ces secrets est encore valide, changez-le :
+mot de passe root du téléphone (l'authentification SSH par mot de passe est désactivée, mais le mot de passe peut servir ailleurs), clés WireGuard (celle du serveur a déjà été renouvelée), appairages Moonlight (révocables dans l'interface web de Sunshine).

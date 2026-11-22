@@ -19,6 +19,8 @@ les 30 s parce que netd peut remanier les chaînes.
 
 ## L'encodeur matériel de Sunshine
 
+> Le récit complet (preuves de concept, code, intégration, compilation, mesures) est dans **[12](12-sunshine-encodeur-materiel.md)** ; cette section n'en garde que le rappel.
+
 `sunshine-v4l2` n'encode **ni en x264 ni sur le GPU Adreno** (malgré un commentaire périmé « x264 logiciel » dans sa configuration) : il utilise le
 bloc d'encodage vidéo du SoC via V4L2 (pilote **`msm_vidc`**, périphérique `/dev/video33`). Le coût CPU de Sunshine est la capture X11 et la
 conversion de couleur, pas l'encodage.
