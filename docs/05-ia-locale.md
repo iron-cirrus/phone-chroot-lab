@@ -52,6 +52,7 @@ Avec le réglage par défaut `--checkpoint-min-step 8192`, l'état Mamba du mod�
   (elles envoyaient des prompts de 5700 jetons qui prenaient 70 s sur CPU).
 - Les deux modèles ont une entrée dans la table `model` avec `capabilities.builtin_tools=false` : sans cela Open WebUI injectait ~7300 jetons d'outils
   intégrés à chaque message (sauvegarde `webui.db.avant-modeles`).
+- Le commentaire de `webui-start.sh` parle des « petits coeurs 0-2 » : il est périmé, le script lance bien Open WebUI sur `taskset -c 3-7`.
 - `WEBUI_SECRET_KEY` est lu dans un fichier (`/root/llm/webui-secret`), jamais écrit dans un script.
 
 ## Démarrage automatique

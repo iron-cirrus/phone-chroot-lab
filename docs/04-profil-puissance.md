@@ -12,9 +12,9 @@ Fichier : `src/phone/service.d/50-power-profile.sh` (un seul démon, sondage tou
 
 ## Comportement
 
-- **Sur secteur** : gouverneur `performance` sur toutes les politiques.
+- **Sur secteur** (USB ou sans fil en ligne, ou statut `Charging`/`Full`) : gouverneur `performance` sur toutes les politiques.
 - **Sur batterie** : `uag` avec les plafonds d'origine (policy0 1459200, policy3 1785600, policy7 1593600 kHz).
-- **Garde-fou thermique** : température de peau ≥ 47 °C → mode économe jusqu'à < 43 °C (il s'applique aussi quand « Max » est choisi à la main).
+- **Garde-fou thermique** : température de peau (zone `skin-msm-therm`) ≥ 47 °C → mode économe jusqu'à < 43 °C (il s'applique aussi quand « Max » est choisi à la main).
 - **Choix manuel** (depuis l'application Pilote ou `phone-ctl.sh gov`) : écrit dans `/data/local/tmp/gov-manual` (lignes « politique gouverneur »), respecté par le démon.
   Un seul curseur à 4 positions pour les 3 blocs : **Auto / Éco / Normal / Max** (`phone-ctl.sh gov all <gouverneur|auto>`).
   - « Éco » (powersave manuel) **plafonne aussi la fréquence max** (policy0 1228800, policy3 1286400, policy7 1248000) : le HAL de performance

@@ -21,7 +21,7 @@ Découpage : un fil d'échantillonnage, un fil de télémétrie (toutes les 2 s)
   Le gros coeur (cpu7) semblait occupé à 50-77 % alors qu'il l'était à ~18 % (vérifié par une trace `sched_switch`). `cpu_stat()` **exclut `steal`**
   du travail et du total (usage mesuré sur le temps où le coeur était disponible). `htop` fait la même erreur.
 - Parts par coeur et par type : chroot (jiffies par thread des processus du chroot), vidéo (Sunshine), IA (processus `llama-server`, comptés à part), reste du système.
-- Fréquences et gouverneurs lus dans sysfs ; températures dans les zones thermiques ; badges WARNING/THROTTLE (seuils CPU 75/85, GPU 70/85, NPU 65/80 °C)
+- Fréquences et gouverneurs lus dans sysfs ; températures dans les zones thermiques ; badges WARNING/THROTTLE (seuils CPU 75/85, GPU 70/85, NPU 65/80, encodeur 75/90 °C)
   qui **remplacent** le texte de fréquence (pour qu'une carte ne change jamais de hauteur).
 
 ### Puissance
