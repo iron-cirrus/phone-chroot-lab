@@ -1,0 +1,26 @@
+--- /root/v4l2_encode.cpp.avant-gop	2026-11-21 15:24:35.840057874 +0100
++++ /usr/local/src/sunshine-build/Sunshine/src/platform/linux/v4l2_encode.cpp	2026-11-21 15:24:52.720057868 +0100
+@@ -246,7 +246,22 @@
+ 
+       set_ctrl(dev, V4L2_CID_MPEG_VIDEO_BITRATE_MODE, V4L2_MPEG_VIDEO_BITRATE_MODE_CBR, "bitrate mode");
+       set_ctrl(dev, V4L2_CID_MPEG_VIDEO_BITRATE, std::min(config.bitrate, 200000) * 1000, "bitrate");
+-      set_ctrl(dev, V4L2_CID_MPEG_VIDEO_GOP_SIZE, fps * 5, "GOP size");
++      // Keyframes seulement a la demande (client Moonlight, perte de paquets) : un IDR periodique toutes les 5 s fait une rafale
++      // de debit a 60 i/s. On demande une GOP "infinie" (comme les autres encodeurs de Sunshine) et on retombe sur des valeurs
++      // plus petites si le pilote refuse (on relit la valeur pour le savoir).
++      {
++        const std::int32_t wanted[] = {1 << 30, 0x7fffff, 0x7fff, fps * 60};
++        for (std::int32_t g : wanted) {
++          set_ctrl(dev, V4L2_CID_MPEG_VIDEO_GOP_SIZE, g, "GOP size");
++          struct v4l2_control rc;
++          std::memset(&rc, 0, sizeof rc);
++          rc.id = V4L2_CID_MPEG_VIDEO_GOP_SIZE;
++          if (xioctl(dev, VIDIOC_G_CTRL, &rc) == 0 && rc.value == g) {
++            BOOST_LOG(info) << "V4L2: GOP size "sv << g << " (keyframes on demand only)"sv;
++            break;
++          }
++        }
++      }
+       set_ctrl(dev, V4L2_CID_MPEG_VIDEO_B_FRAMES, 0, "B frames");
+       set_ctrl(dev, V4L2_CID_MPEG_VIDEO_H264_PROFILE, V4L2_MPEG_VIDEO_H264_PROFILE_HIGH, "profile");
+       set_ctrl(dev, V4L2_CID_MPEG_VIDEO_PREPEND_SPSPPS_TO_IDR, 1, "SPS/PPS before IDR");

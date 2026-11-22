@@ -1,0 +1,28 @@
+# secrets et clés
+*.jks
+*.keystore
+*.pem
+*.key
+*.p12
+id_rsa*
+id_ed25519*
+wg*.conf
+webui-secret
+.env
+# bases de données, modèles, binaires
+*.db
+*.gguf
+*.apk
+*.idsig
+*.so
+*.dex
+# journaux et captures
+*.log
+*.png
+*.jpg
+*.xwd
+# sorties de compilation
+out/
+__pycache__/
+*.bak*
+*.avant-*
